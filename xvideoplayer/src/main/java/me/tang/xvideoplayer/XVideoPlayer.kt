@@ -16,18 +16,22 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         @JvmStatic
         val TAG = XVideoPlayer::class.java.simpleName
 
-        @JvmStatic
-        val MODE_NORMAL = 10
-        @JvmStatic
-        val MODE_FULL_SCREEN = 11
-        @JvmStatic
-        val MODE_TINY_WINDOW = 12
+        const val WINDOW_MODE_NORMAL = 10
+        const val WINDOW_MODE_FULLSCREEN = 11
+        const val WINDOW_MODE_TINY = 12
 
+        const val DISPLAY_TYPE_ADAPTER = 0
+        const val DISPLAY_TYPE_FILL_PARENT = 1
+        const val DISPLAY_TYPE_FILL_SCROP = 2
+        const val DISPLAY_TYPE_ORIGINAL = 3
     }
 
     //
-    private var _currentMode = MODE_NORMAL
-    val currentMode get() = _currentMode
+    private var _windowMode = WINDOW_MODE_NORMAL
+    val windowMode get() = _windowMode
+
+    private var _currentDisplayType = DISPLAY_TYPE_ADAPTER
+    val displayType get() = _currentDisplayType
 
     //view
     private lateinit var container: FrameLayout
@@ -36,8 +40,8 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
     private val textureView get() = _textureView!!
 
     private var _media: XVideoPlayerMedia? = null
-    private val media get() = _media!!
-
+    val media get() = _media!!
+//private
     private var _controler: XVideoPlayerController? = null
     private val controller get() = _controler!!
 
@@ -70,6 +74,7 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
     private fun initTextureView() {
         _textureView ?: XTextureView(this.context).also {
             it.surfaceTextureListener = this
+            it.setDisplayType(displayType)
             _textureView = it
         }
     }
@@ -82,6 +87,24 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
             Gravity.CENTER)
         container.addView(textureView, 0, params)
     }
+
+    fun setDisplayType(type: Int) {
+        if (_currentDisplayType == type)
+            return
+
+        _currentDisplayType = type
+
+        _textureView?.setDisplayType(type)
+    }
+
+    fun setVideoSize(width: Int, height: Int) {
+        _textureView?.setVideoSize(width, height)
+    }
+
+    fun setVideoRotation(rotation: Float) {
+        _textureView?.rotation = rotation
+    }
+
 
     fun setMedia(media: XVideoPlayerMedia) {
         _media = media
@@ -99,7 +122,7 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
     }
 
     fun enterFullScreen() {
-        if (currentMode == MODE_FULL_SCREEN)
+        if (windowMode == WINDOW_MODE_FULLSCREEN)
             return
 
         XUtil.hideActionBar(this.context)
@@ -108,7 +131,7 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         val contentView = XUtil.scanForActivity(this.context)?.findViewById<ViewGroup>(Window.ID_ANDROID_CONTENT)
         check(contentView != null) { "ID_ANDROID_CONTENT not found" }
 
-        if (currentMode == MODE_TINY_WINDOW)
+        if (windowMode == WINDOW_MODE_TINY)
             contentView.removeView(container)
         else
             removeView(container)
@@ -118,11 +141,11 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
             ViewGroup.LayoutParams.MATCH_PARENT)
         contentView.addView(container, params)
 
-        _currentMode = MODE_FULL_SCREEN
+        _windowMode = WINDOW_MODE_FULLSCREEN
     }
 
     fun exitFullScreen(): Boolean{
-        if (currentMode != MODE_FULL_SCREEN)
+        if (windowMode != WINDOW_MODE_FULLSCREEN)
             return false
 
         XUtil.showActionBar(this.context)
@@ -138,12 +161,12 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
             ViewGroup.LayoutParams.MATCH_PARENT)
         addView(container, params)
 
-        _currentMode = MODE_NORMAL
+        _windowMode = WINDOW_MODE_NORMAL
         return true
     }
 
     fun enterTinyWindow() {
-        if (currentMode == MODE_TINY_WINDOW)
+        if (windowMode == WINDOW_MODE_TINY)
             return
 
         removeView(container)
@@ -160,11 +183,11 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         }
         contentView.addView(container, params)
 
-        _currentMode = MODE_TINY_WINDOW
+        _windowMode = WINDOW_MODE_TINY
     }
 
     fun exitTinyWindow(): Boolean{
-        if (currentMode != MODE_TINY_WINDOW)
+        if (windowMode != WINDOW_MODE_TINY)
             return false
 
         val contentView = XUtil.scanForActivity(this.context)?.findViewById<ViewGroup>(Window.ID_ANDROID_CONTENT)
@@ -177,7 +200,7 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
             ViewGroup.LayoutParams.MATCH_PARENT)
         addView(container, params)
 
-        _currentMode = MODE_NORMAL
+        _windowMode = WINDOW_MODE_NORMAL
         return true
     }
 
@@ -187,7 +210,9 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
             _surface = it
         }
 
-        media.start("/data/local/tmp/v1080.mp4", surface)
+        //media.start("/data/local/tmp/v1080.mp4", surface)
+        media.start("rtsp://wowzaec2demo.streamlock.net/vod/mp4", surface)
+        //media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
     }
 
     override fun onSurfaceTextureAvailable(surface2: SurfaceTexture, width: Int, height: Int) {

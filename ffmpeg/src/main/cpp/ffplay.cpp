@@ -2134,7 +2134,6 @@ static int stream_component_open(VideoState *is, int stream_index)
             is->audio_stream = stream_index;
             is->audio_st = ic->streams[stream_index];
 
-
             decoder_init(&is->auddec, avctx, &is->audioq, is->continue_read_thread);
             if ((is->ic->iformat->flags & (AVFMT_NOBINSEARCH | AVFMT_NOGENSEARCH | AVFMT_NO_BYTE_SEEK)) && !is->ic->iformat->read_seek) {
                 is->auddec.start_pts = is->audio_st->start_time;
@@ -3659,4 +3658,19 @@ void set_surface(VideoState *is, void *surface)
             is->window = NULL;
         }
     }
+}
+
+
+int get_width(VideoState *is)
+{
+    if (is->video_stream >= 0)
+        return is->ic->streams[is->video_stream]->codecpar->width;
+    return 0;
+}
+
+int get_height(VideoState *is)
+{
+    if (is->video_stream >= 0)
+        return is->ic->streams[is->video_stream]->codecpar->height;
+    return 0;
 }

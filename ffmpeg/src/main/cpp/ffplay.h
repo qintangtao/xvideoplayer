@@ -52,4 +52,7 @@ void set_rate(VideoState *is, int rate);
 
 void set_surface(VideoState *is, void *surface);
 
+int get_width(VideoState *is);
+int get_height(VideoState *is);
+
 #endif //NDKDEMO_FFPLAY_H

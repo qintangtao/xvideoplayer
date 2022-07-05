@@ -16,3 +16,5 @@ rootProject.name = "xvideoplayer"
 include ':app'
 include ':ffmpeg'
 include ':xvideoplayer'
+include ':xvideoplayer-ffmpeg'
+include ':xvideoplayer-controller'

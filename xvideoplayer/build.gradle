@@ -34,8 +34,6 @@ android {
 
 dependencies {
 
-    implementation project(path: ':ffmpeg')
-
     api rootProject.ext.dependencies["utilcodex"]
     api rootProject.ext.dependencies.coroutines
 

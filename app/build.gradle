@@ -40,6 +40,8 @@ android {
 dependencies {
 
     implementation project(path: ':xvideoplayer')
+    implementation project(path: ':xvideoplayer-ffmpeg')
+    implementation project(path: ':xvideoplayer-controller')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'

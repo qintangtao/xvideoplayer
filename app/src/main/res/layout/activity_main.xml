@@ -9,29 +9,94 @@
     <me.tang.xvideoplayer.XVideoPlayer
         android:id="@+id/xVideoPlayer"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="330dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnFullScreen"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/xVideoPlayer"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnTinyWindow"
         android:layout_marginStart="9dp"
         android:layout_marginEnd="9dp"
         android:text="全屏" />
 
     <Button
         android:id="@+id/btnTinyWindow"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/btnFullScreen"
+        app:layout_constraintTop_toBottomOf="@+id/xVideoPlayer"
+        app:layout_constraintLeft_toRightOf="@+id/btnFullScreen"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="9dp"
+        android:text="小窗口" />
+
+    <Button
+        android:id="@+id/btnVideoSize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnTinyWindow"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnRotation90"
+        android:layout_marginStart="9dp"
+        android:text="视频大小" />
+
+    <Button
+        android:id="@+id/btnRotation90"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnTinyWindow"
+        app:layout_constraintLeft_toRightOf="@+id/btnVideoSize"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="9dp"
         android:layout_marginEnd="9dp"
-        android:text="小窗口" />
+        android:text="旋转90" />
+
+    <Button
+        android:id="@+id/btnFillParent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnVideoSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnFillCrop"
+        android:layout_marginStart="9dp"
+        android:text="FILL PARENT" />
+
+    <Button
+        android:id="@+id/btnFillCrop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnVideoSize"
+        app:layout_constraintLeft_toRightOf="@+id/btnFillParent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:text="FILL CROP" />
+
+
+    <Button
+        android:id="@+id/btnOriginal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnFillParent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnAdapter"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:text="ORIGINAL" />
+
+    <Button
+        android:id="@+id/btnAdapter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnFillParent"
+        app:layout_constraintLeft_toRightOf="@+id/btnOriginal"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:text="ADAPTER" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

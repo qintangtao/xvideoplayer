@@ -22,6 +22,11 @@ class FFplay {
 
     external fun setSurface(handle: Long, surface: Surface)
 
+    external fun width(handle: Long): Int
+
+    external fun height(handle: Long): Int
+
+
     companion object {
         init {
             System.loadLibrary("ffplay")
@@ -59,6 +64,10 @@ class FFplay {
         fun setRate(handle: Long, rate: Int) = instance.setRate(handle, rate)
 
         fun setSurface(handle: Long, surface: Surface) = instance.setSurface(handle, surface)
+
+        fun width(handle: Long): Int = instance.width(handle)
+
+        fun height(handle: Long): Int = instance.height(handle)
 
         private var _instance: FFplay? = null
             get() {

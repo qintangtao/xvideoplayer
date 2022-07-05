@@ -225,3 +225,32 @@ Java_me_tang_ffmpeg_FFplay_setSurface(
         env->DeleteGlobalRef(gsurface);
 }
 
+extern "C" JNIEXPORT jint JNICALL
+Java_me_tang_ffmpeg_FFplay_width(
+        JNIEnv* env,
+        jobject /* this */,
+        jlong handle) {
+
+    VideoState *is = (VideoState *)handle;
+
+    const char *utf8 = stream_filename(is);
+
+    LOGV("file %s\n", utf8);
+
+    return get_width(is);
+}
+
+extern "C" JNIEXPORT jint JNICALL
+Java_me_tang_ffmpeg_FFplay_height(
+        JNIEnv* env,
+        jobject /* this */,
+        jlong handle) {
+
+    VideoState *is = (VideoState *)handle;
+
+    const char *utf8 = stream_filename(is);
+
+    LOGV("file %s\n", utf8);
+
+    return get_height(is);
+}

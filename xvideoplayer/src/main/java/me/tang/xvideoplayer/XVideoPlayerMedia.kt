@@ -28,4 +28,8 @@ interface XVideoPlayerMedia {
 
     fun getCurrentDuration(): Long
 
+    fun width(): Int
+
+    fun height(): Int
+
 }

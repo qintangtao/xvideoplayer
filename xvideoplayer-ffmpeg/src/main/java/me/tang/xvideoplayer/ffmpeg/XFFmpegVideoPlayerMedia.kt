@@ -1,7 +1,8 @@
-package me.tang.xvideoplayer
+package me.tang.xvideoplayer.ffmpeg
 
 import android.view.Surface
 import me.tang.ffmpeg.FFplay
+import me.tang.xvideoplayer.XVideoPlayerMedia
 
 class XFFmpegVideoPlayerMedia : XVideoPlayerMedia {
 
@@ -80,4 +81,17 @@ class XFFmpegVideoPlayerMedia : XVideoPlayerMedia {
         return 0
     }
 
+    override fun width(): Int {
+        handler?.let {
+            return FFplay.width(it)
+        }
+        return 0
+    }
+
+    override fun height(): Int {
+        handler?.let {
+            return FFplay.height(it)
+        }
+        return 0
+    }
 }

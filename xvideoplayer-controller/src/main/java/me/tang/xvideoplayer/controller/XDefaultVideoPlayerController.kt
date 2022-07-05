@@ -1,9 +1,10 @@
-package me.tang.xvideoplayer
+package me.tang.xvideoplayer.controller
 
 import android.content.Context
 import android.util.AttributeSet
+import me.tang.xvideoplayer.XVideoPlayerController
 
-class XDefaultVideoPlayerControler : XVideoPlayerController {
+class XDefaultVideoPlayerController : XVideoPlayerController {
 
     constructor(context: Context): this(context, null)
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)

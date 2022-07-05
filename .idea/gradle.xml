@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/ffmpeg" />
             <option value="$PROJECT_DIR$/xvideoplayer" />
+            <option value="$PROJECT_DIR$/xvideoplayer-controller" />
+            <option value="$PROJECT_DIR$/xvideoplayer-ffmpeg" />
           </set>
         </option>
       </GradleProjectSettings>
