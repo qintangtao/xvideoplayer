@@ -58,35 +58,15 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         init(context, attrs)
     }
 
-    private fun init(context: Context, attrs: AttributeSet?) {
-        container = FrameLayout(context).apply {
-            setBackgroundColor(Color.BLACK)
-        }
-        val params = LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT)
-        addView(container, params)
-
-        initTextureView()
-        addTextureView()
+    fun start() {
+        //media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
+        media.start("/data/local/tmp/v1080.mp4", surface)
     }
 
-    private fun initTextureView() {
-        _textureView ?: XTextureView(this.context).also {
-            it.surfaceTextureListener = this
-            it.setDisplayType(displayType)
-            _textureView = it
-        }
+    fun stop() {
+        media.stop()
     }
 
-    private fun addTextureView() {
-        container.removeView(textureView)
-        val params = LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            Gravity.CENTER)
-        container.addView(textureView, 0, params)
-    }
 
     fun setScale(scale: Float) {
         _textureView?.setScale(scale)
@@ -117,10 +97,13 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
             container.removeView(it)
         }
         _controler = controller2
-        val params = FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT)
-        container.addView(controller, params)
+        _controler?.let {
+            it.setVideoPlayer(this)
+            val params = FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT)
+            container.addView(it, params)
+        }
     }
 
     fun enterFullScreen() {
@@ -206,6 +189,36 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         return true
     }
 
+    private fun init(context: Context, attrs: AttributeSet?) {
+        container = FrameLayout(context).apply {
+            setBackgroundColor(Color.BLACK)
+        }
+        val params = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT)
+        addView(container, params)
+
+        initTextureView()
+        addTextureView()
+    }
+
+    private fun initTextureView() {
+        _textureView ?: XTextureView(this.context).also {
+            it.surfaceTextureListener = this
+            it.setDisplayType(displayType)
+            _textureView = it
+        }
+    }
+
+    private fun addTextureView() {
+        container.removeView(textureView)
+        val params = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            Gravity.CENTER)
+        container.addView(textureView, 0, params)
+    }
+
     private fun openMediaPlayer() {
 
         _surface ?: Surface(surfaceTexture).also {
@@ -214,7 +227,7 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
 
         //media.start("/data/local/tmp/v1080.mp4", surface)
         //media.start("rtsp://wowzaec2demo.streamlock.net/vod/mp4", surface)
-        media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
+        //media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
     }
 
     override fun onSurfaceTextureAvailable(surface2: SurfaceTexture, width: Int, height: Int) {

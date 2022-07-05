@@ -3,6 +3,7 @@ package me.tang.xvideoplayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import me.tang.xvideoplayer.controller.XDefaultVideoPlayerController
 import me.tang.xvideoplayer.databinding.ActivityMainBinding
 import me.tang.xvideoplayer.ffmpeg.XFFmpegVideoPlayerMedia
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         Log.d(XVideoPlayer.TAG, "MainActivity onCreate")
 
         binding.xVideoPlayer.setMedia(XFFmpegVideoPlayerMedia())
+        binding.xVideoPlayer.setController(XDefaultVideoPlayerController(this))
 
         binding.btnFullScreen.setOnClickListener {
             Log.d(XVideoPlayer.TAG, "MainActivity setOnClickListener")
