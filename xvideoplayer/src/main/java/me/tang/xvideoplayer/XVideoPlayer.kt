@@ -3,15 +3,14 @@ package me.tang.xvideoplayer
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.graphics.Color
+import android.graphics.SurfaceTexture
 import android.util.AttributeSet
-import android.view.Gravity
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.FrameLayout
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 
-class XVideoPlayer : FrameLayout {
+class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
 
     companion object {
         @JvmStatic
@@ -31,8 +30,10 @@ class XVideoPlayer : FrameLayout {
     val currentMode get() = _currentMode
 
     //view
-    private lateinit var _container: FrameLayout
-    private val container get() = _container
+    private lateinit var container: FrameLayout
+
+    private var _textureView: XTextureView? = null
+    private val textureView get() = _textureView!!
 
     private var _media: XVideoPlayerMedia? = null
     private val media get() = _media!!
@@ -40,20 +41,46 @@ class XVideoPlayer : FrameLayout {
     private var _controler: XVideoPlayerController? = null
     private val controller get() = _controler!!
 
+    // surface
+    private var _surfaceTexture: SurfaceTexture? = null
+    private val surfaceTexture get() = _surfaceTexture!!
+
+    private var _surface: Surface? = null
+    private val surface get() = _surface!!
+
     constructor(context: Context): this(context, null)
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
         init(context, attrs)
     }
 
-    fun init(context: Context, attrs: AttributeSet?) {
-        _container = FrameLayout(context).apply {
+    private fun init(context: Context, attrs: AttributeSet?) {
+        container = FrameLayout(context).apply {
             setBackgroundColor(Color.BLACK)
         }
         val params = LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT)
         addView(container, params)
+
+        initTextureView()
+        addTextureView()
+    }
+
+    private fun initTextureView() {
+        _textureView ?: XTextureView(this.context).also {
+            it.surfaceTextureListener = this
+            _textureView = it
+        }
+    }
+
+    private fun addTextureView() {
+        container.removeView(textureView)
+        val params = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            Gravity.CENTER)
+        container.addView(textureView, 0, params)
     }
 
     fun setMedia(media: XVideoPlayerMedia) {
@@ -152,6 +179,36 @@ class XVideoPlayer : FrameLayout {
 
         _currentMode = MODE_NORMAL
         return true
+    }
+
+    private fun openMediaPlayer() {
+
+        _surface ?: Surface(surfaceTexture).also {
+            _surface = it
+        }
+
+        media.start("/data/local/tmp/v1080.mp4", surface)
+    }
+
+    override fun onSurfaceTextureAvailable(surface2: SurfaceTexture, width: Int, height: Int) {
+        if (_surfaceTexture == null) {
+            _surfaceTexture = surface2
+            openMediaPlayer()
+        } else {
+            textureView.setSurfaceTexture(surfaceTexture)
+        }
+    }
+
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
+
+    }
+
+    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
+        return _surfaceTexture == null
+    }
+
+    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
+
     }
 
 

@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(XVideoPlayer.TAG, "MainActivity onCreate")
 
+        binding.xVideoPlayer.setMedia(XFFmpegVideoPlayerMedia())
+
         binding.btnFullScreen.setOnClickListener {
             Log.d(XVideoPlayer.TAG, "MainActivity setOnClickListener")
             binding.xVideoPlayer.enterFullScreen()
