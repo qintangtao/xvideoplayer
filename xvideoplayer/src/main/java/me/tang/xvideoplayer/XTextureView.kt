@@ -19,11 +19,20 @@ class XTextureView : TextureView {
     private var videoHeight = 0
     private var videoWidth = 0
     private var displayType = XVideoPlayer.DISPLAY_TYPE_ADAPTER
+    private var scale = 1.0f
 
     constructor(context: Context): this(context, null)
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
         //init(context, attrs)
+
+    }
+
+    fun setScale(scale: Float) {
+        if (this.scale != scale) {
+            this.scale = scale
+            requestLayout()
+        }
     }
 
     fun setDisplayType(type: Int) {
@@ -151,6 +160,6 @@ class XTextureView : TextureView {
             }
         }
 
-        setMeasuredDimension(width, height)
+        setMeasuredDimension((width*scale).toInt(), (height*scale).toInt())
     }
 }

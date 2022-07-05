@@ -88,6 +88,10 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         container.addView(textureView, 0, params)
     }
 
+    fun setScale(scale: Float) {
+        _textureView?.setScale(scale)
+    }
+
     fun setDisplayType(type: Int) {
         if (displayType != type) {
             _displayType = type
