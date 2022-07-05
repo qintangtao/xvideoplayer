@@ -30,8 +30,8 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
     private var _windowMode = WINDOW_MODE_NORMAL
     val windowMode get() = _windowMode
 
-    private var _currentDisplayType = DISPLAY_TYPE_ADAPTER
-    val displayType get() = _currentDisplayType
+    private var _displayType = DISPLAY_TYPE_ADAPTER
+    val displayType get() = _displayType
 
     //view
     private lateinit var container: FrameLayout
@@ -89,12 +89,10 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
     }
 
     fun setDisplayType(type: Int) {
-        if (_currentDisplayType == type)
-            return
-
-        _currentDisplayType = type
-
-        _textureView?.setDisplayType(type)
+        if (displayType != type) {
+            _displayType = type
+            _textureView?.setDisplayType(type)
+        }
     }
 
     fun setVideoSize(width: Int, height: Int) {
@@ -211,8 +209,8 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         }
 
         //media.start("/data/local/tmp/v1080.mp4", surface)
-        media.start("rtsp://wowzaec2demo.streamlock.net/vod/mp4", surface)
-        //media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
+        //media.start("rtsp://wowzaec2demo.streamlock.net/vod/mp4", surface)
+        media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
     }
 
     override fun onSurfaceTextureAvailable(surface2: SurfaceTexture, width: Int, height: Int) {
