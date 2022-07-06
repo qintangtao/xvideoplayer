@@ -39,11 +39,11 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
     private var _textureView: XTextureView? = null
     private val textureView get() = _textureView!!
 
-    private var _media: XVideoPlayerMedia? = null
-    val media get() = _media!!
+    private var _mediaPlayer: XMediaPlayer? = null
+    val mediaPlayer get() = _mediaPlayer!!
 //private
-    private var _controler: XVideoPlayerController? = null
-    private val controller get() = _controler!!
+    private var _videoController: XVideoController? = null
+    private val videoController get() = _videoController!!
 
     // surface
     private var _surfaceTexture: SurfaceTexture? = null
@@ -59,14 +59,13 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
     }
 
     fun start() {
-        //media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
-        media.start("/data/local/tmp/v1080.mp4", surface)
+        //mediaPlayer.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
+        mediaPlayer.start("/data/local/tmp/v1080.mp4", surface)
     }
 
     fun stop() {
-        media.stop()
+        mediaPlayer.stop()
     }
-
 
     fun setScale(scale: Float) {
         _textureView?.setScale(scale)
@@ -87,17 +86,16 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
         _textureView?.rotation = rotation
     }
 
-
-    fun setMedia(media: XVideoPlayerMedia) {
-        _media = media
+    fun setMediaPlayer(media: XMediaPlayer) {
+        _mediaPlayer = media
     }
 
-    fun setController(controller2: XVideoPlayerController) {
-        _controler?.let {
+    fun setVideoController(controller2: XVideoController) {
+        _videoController?.let {
             container.removeView(it)
         }
-        _controler = controller2
-        _controler?.let {
+        _videoController = controller2
+        _videoController?.let {
             it.setVideoPlayer(this)
             val params = FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -225,9 +223,9 @@ class XVideoPlayer : FrameLayout, TextureView.SurfaceTextureListener{
             _surface = it
         }
 
-        //media.start("/data/local/tmp/v1080.mp4", surface)
-        //media.start("rtsp://wowzaec2demo.streamlock.net/vod/mp4", surface)
-        //media.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
+        //mediaPlayer.start("/data/local/tmp/v1080.mp4", surface)
+        //mediaPlayer.start("rtsp://wowzaec2demo.streamlock.net/vod/mp4", surface)
+        //mediaPlayer.start("rtsp://admin:br123456789@192.168.1.39:554/avstream", surface)
     }
 
     override fun onSurfaceTextureAvailable(surface2: SurfaceTexture, width: Int, height: Int) {

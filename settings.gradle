@@ -10,11 +10,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
     }
 }
 rootProject.name = "xvideoplayer"
 include ':app'
 include ':ffmpeg'
 include ':xvideoplayer'
-include ':xvideoplayer-ffmpeg'
-include ':xvideoplayer-controller'
+include ':xvideoplayer-media-ffmpeg'
+include ':xvideoplayer-controller-tx'

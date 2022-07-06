@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -12,8 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/ffmpeg" />
             <option value="$PROJECT_DIR$/xvideoplayer" />
-            <option value="$PROJECT_DIR$/xvideoplayer-controller" />
-            <option value="$PROJECT_DIR$/xvideoplayer-ffmpeg" />
+            <option value="$PROJECT_DIR$/xvideoplayer-controller-tx" />
+            <option value="$PROJECT_DIR$/xvideoplayer-media-ffmpeg" />
           </set>
         </option>
       </GradleProjectSettings>

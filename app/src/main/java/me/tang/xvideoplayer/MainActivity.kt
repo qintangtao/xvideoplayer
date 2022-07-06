@@ -3,9 +3,10 @@ package me.tang.xvideoplayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import me.tang.xvideoplayer.controller.XDefaultVideoPlayerController
+import me.tang.xvideoplayer.controller.tx.TXVideoController
 import me.tang.xvideoplayer.databinding.ActivityMainBinding
-import me.tang.xvideoplayer.ffmpeg.XFFmpegVideoPlayerMedia
+import me.tang.xvideoplayer.media.ffmpeg.FFmpegMediaPlayer
+//import tv.danmaku.ijk.media.player.IMediaPlayer
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -13,13 +14,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //var player: IMediaPlayer? = null
+
         binding = ActivityMainBinding.inflate(layoutInflater);
         setContentView(binding.root)
 
         Log.d(XVideoPlayer.TAG, "MainActivity onCreate")
 
-        binding.xVideoPlayer.setMedia(XFFmpegVideoPlayerMedia())
-        binding.xVideoPlayer.setController(XDefaultVideoPlayerController(this))
+        binding.xVideoPlayer.setMediaPlayer(FFmpegMediaPlayer())
+        binding.xVideoPlayer.setVideoController(TXVideoController(this))
 
         binding.btnFullScreen.setOnClickListener {
             Log.d(XVideoPlayer.TAG, "MainActivity setOnClickListener")
@@ -34,8 +37,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnVideoSize.setOnClickListener {
-            val w = binding.xVideoPlayer.media.width()
-            val h = binding.xVideoPlayer.media.height()
+            val w = binding.xVideoPlayer.mediaPlayer.width()
+            val h = binding.xVideoPlayer.mediaPlayer.height()
             Log.d(XVideoPlayer.TAG, "MainActivity setVideoSize $w x $h")
             binding.xVideoPlayer.setVideoSize(w, h)
         }

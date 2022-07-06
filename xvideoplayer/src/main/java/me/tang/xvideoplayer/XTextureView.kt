@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.TextureView
 import android.view.View
 
-
 class XTextureView : TextureView {
 
     companion object {
@@ -25,7 +24,6 @@ class XTextureView : TextureView {
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
         //init(context, attrs)
-
     }
 
     fun setScale(scale: Float) {

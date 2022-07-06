@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/xvideoplayer/app/src/main/res/layout/activity_main.xml" value="0.23072916666666668" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/xvideoplayer/xvideoplayer-controller/src/main/res/layout/default_video_player_controller.xml" value="0.15881458966565348" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/xvideoplayer/xvideoplayer-controller/src/main/res/layout/demo_video_player_controller.xml" value="0.3265625" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/xvideoplayer/xvideoplayer-controller/src/main/res/layout/video_player_controller.xml" value="0.32971014492753625" />
       </map>
     </option>
